@@ -1,0 +1,14 @@
+
+npm init or npm init -y
+and  create   package.json
+
+"type": "module",
+npm update
+
+npm install npm@latest -g
+
+npm install express cors  
+
+// npm install express --save
+
+npm install mysql
