@@ -9,7 +9,20 @@ const  commentservice  = require('./CommentService');
 const bodyParser = require('body-parser');
 
 const app = express();
-app.use(cors());
+
+var whitelist = ['http://109.122.224.141', 'http://109.122.224.141:3000','http://localhost','http://localhost:3000']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
+//app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -18,18 +31,18 @@ const port = 8000;
   
  
 
-   app.get("/",(req,res)=>{
+   app.get("/",cors(corsOptionsDelegate),(req,res)=>{
     
      res.send("welcome my app MYSQL");
    });
    
-   app.get("/Create",(req,res)=>{
+   app.get("/Create",cors(corsOptionsDelegate),(req,res)=>{
       commentservice.Connection();
       res.send("Create  MYSQL");
   });
   
 
-    app.get("/Delete",async(req,res)=>{
+    app.get("/Delete",cors(corsOptionsDelegate),async(req,res)=>{
   
         let commentID = req.query.CommentID;
         await  commentservice.Delete(commentID).then((state) =>{
@@ -43,7 +56,7 @@ const port = 8000;
     });
 
    
-   app.get("/GetByID", async (req,res)=>{
+   app.get("/GetByID", cors(corsOptionsDelegate),async (req,res)=>{
      
     let commentID = req.query.CommentID;
     await  commentservice.GetByID(commentID).then((Comment) =>{
@@ -56,7 +69,7 @@ const port = 8000;
  
    });
    
-   app.get("/GetAll", async (req,res)=>{
+   app.get("/GetAll", cors(corsOptionsDelegate), async (req,res)=>{
    
     await  commentservice.GetAll().then((Comments) =>{
         if(Comments != null){
@@ -72,7 +85,7 @@ const port = 8000;
      
    });
    
-   app.get("/Insert",async(req,res)=>{
+   app.get("/Insert",cors(corsOptionsDelegate),async(req,res)=>{
    
         let userID = req.query.UserID;
         const date  = new Date();  
@@ -93,7 +106,7 @@ const port = 8000;
    });
    
    
-   app.get("/Update", async(req,res)=>{
+   app.get("/Update", cors(corsOptionsDelegate),async(req,res)=>{
         let commentID = req.query.CommentID;
         const date  = new Date();  
         const  comment = new IComment();
