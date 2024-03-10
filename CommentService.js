@@ -6,9 +6,7 @@
      var   Comment     = new IComment();
       
 
-   
-
-      function  CreateTable(){
+    function  CreateTable(){
      
         const createSql = 'CREATE TABLE IF NOT EXISTS Tbl_Comment (Comment_ID  INT AUTO_INCREMENT    PRIMARY KEY  NOT NULL  , Comment_UserID  INT NOT NULL , Comment_ProductID INT NOT NULL , Comment_Text VARCHAR(255)   NULL, Comment_DateTime VARCHAR(100)   NULL  ); '
         dbMysql.query(createSql,(err, result) => {

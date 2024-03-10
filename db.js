@@ -8,9 +8,9 @@ var connection = mysql.createConnection({
     database : 'accounting'
 });
 
-  connection.connect((err) => {
-      if(err) throw err;
-     console.log('Connected to MySQL Server!');
-  });
+  // connection.connect((err) => {
+  //     if(err) throw err;
+  //    console.log('Connected to MySQL Server!');
+  // });
 
 module.exports = connection;
