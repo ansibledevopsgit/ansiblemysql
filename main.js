@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-var whitelist = ['http://109.122.224.141', 'http://109.122.224.141:3000','http://localhost','http://localhost:3000']
+var whitelist = ['http://109.122.224.141', 'http://109.122.224.141:3000','http://192.168.1.103:3000','http://localhost:3000']
 var corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (whitelist.indexOf(req.header('Origin')) !== -1) {
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const hostname = 'localhost';
-const port = 8000;
+const port = 8080;
   
  
 
