@@ -6,9 +6,7 @@
      var   Comment     = new IComment();
       
 
-    function Connection() {
-         CreateTable();
-    }
+   
 
       function  CreateTable(){
      
@@ -95,7 +93,8 @@
     }
 
     module.exports ={
-        Connection ,
+        
+        CreateTable,
            GetAll,
            GetByID,
            Delete,

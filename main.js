@@ -37,7 +37,7 @@ const port = 8080;
    });
    
    app.get("/Create",(req,res)=>{
-      commentservice.Connection();
+      commentservice.CreateTable();
       res.send("Create  MYSQL");
   });
   
