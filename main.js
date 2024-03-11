@@ -10,18 +10,24 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// var whitelist = ['http://109.122.224.141', 'http://109.122.224.141:3000','http://192.168.1.103:3000','http://localhost:3000']
-// var corsOptionsDelegate = function (req, callback) {
-//   var corsOptions;
-//   if (whitelist.indexOf(req.header('Origin')) !== -1) {
-//     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-//   } else {
-//     corsOptions = { origin: false } // disable CORS for this request
-//   }
-//   callback(null, corsOptions) // callback expects two parameters: error and options
-// }
+ 
 
-app.use(cors());
+const corsOpts = {
+    origin: '*',
+  
+    methods: [
+      'GET',
+      'POST',
+      'PUT',
+      'DELETE'
+    ],
+  
+    allowedHeaders: [
+      'Content-Type',
+    ],
+  };
+  
+  app.use(cors(corsOpts));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -87,11 +93,10 @@ const port = 5000;
    
    app.post("/Insert",async(req,res)=>{
    
-        let userID = req.query;
-         console.log(userID);
+        let userID = req.query.UserID;
         const date  = new Date();  
         const  comment = new IComment();
-        comment.comment_userid=100;
+        comment.comment_userid=userID;
         comment.comment_productid=1000;
         comment.comment_text="insert comment very good product";
         comment.comment_datetime= date.toString();  

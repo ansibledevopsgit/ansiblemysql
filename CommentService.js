@@ -18,13 +18,13 @@
 
     function  CreateTable(){
      
-        const createSql = 'CREATE TABLE IF NOT EXISTS Tbl_Comment (Comment_ID  INT AUTO_INCREMENT    PRIMARY KEY  NOT NULL  , Comment_UserID  INT NOT NULL , Comment_ProductID INT NOT NULL , Comment_Text VARCHAR(255)   NULL, Comment_DateTime VARCHAR(100)   NULL  ); '
+        const createSql = 'CREATE TABLE  Tbl_Comment (Comment_ID  INT AUTO_INCREMENT    PRIMARY KEY  NOT NULL  , Comment_UserID  INT NOT NULL , Comment_ProductID INT NOT NULL , Comment_Text VARCHAR(255)   NULL, Comment_DateTime VARCHAR(100)   NULL  ); '
         connection.query(createSql,(err, result) => {
             if(err) {
                 console.error(err);
             }
             // rows fetch
-            console.log(result);
+            console.log("create "+result);
         });
         
     }
