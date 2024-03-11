@@ -12,22 +12,16 @@ const app = express();
 
  
 
-const corsOpts = {
-    origin: '*',
+const corsOptions = {
+    optionsSuccessStatus: 200 ,
+     
+    origin: ['http://localhost:3000', 'http://localhost:5000' ,'http://localhost:80']  
+};
+
+//app.use(cors(corsOptions));  
+
   
-    methods: [
-      'GET',
-      'POST',
-      'PUT',
-      'DELETE'
-    ],
-  
-    allowedHeaders: [
-      'Content-Type',
-    ],
-  };
-  
-  app.use(cors(corsOpts));
+ 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,12 +31,12 @@ const port = 5000;
   
  
 
-   app.get("/",(req,res)=>{
+   app.get("/",cors(corsOptions),(req,res)=>{
     
      res.send("welcome my app MYSQL");
    });
    
-   app.get("/Create",(req,res)=>{
+   app.get("/Create",cors(corsOptions),(req,res)=>{
       commentservice.CreateTable();
       res.send("Create  MYSQL");
   });
@@ -91,7 +85,7 @@ const port = 5000;
      
    });
    
-   app.post("/Insert",async(req,res)=>{
+   app.post("/Insert",cors(corsOptions),async(req,res)=>{
    
         let userID = req.query.UserID;
         const date  = new Date();  
