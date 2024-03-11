@@ -85,12 +85,13 @@ const port = 5000;
      
    });
    
-   app.get("/Insert",async(req,res)=>{
+   app.post("/Insert",async(req,res)=>{
    
-        let userID = req.query.UserID;
+        let userID = req.query;
+         console.log(userID);
         const date  = new Date();  
         const  comment = new IComment();
-        comment.comment_userid=userID;
+        comment.comment_userid=100;
         comment.comment_productid=1000;
         comment.comment_text="insert comment very good product";
         comment.comment_datetime= date.toString();  
