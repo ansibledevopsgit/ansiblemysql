@@ -9,6 +9,8 @@ const  commentservice  = require('./CommentService');
 const bodyParser = require('body-parser');
 
 const app = express();
+//const hostname = 'localhost';
+const port = 5000;
 
   
 app.use(function (req, res, next) {
@@ -35,14 +37,14 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//const hostname = 'localhost';
-const port = 5000;
+
   
  
 
    app.get("/",(req,res)=>{
     
      res.send("welcome my app MYSQL");
+     
    });
    
    app.get("/Create",(req,res)=>{
