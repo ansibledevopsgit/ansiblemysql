@@ -10,16 +10,25 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
- 
+  
+app.use(function (req, res, next) {
 
-const corsOptions = {
-    optionsSuccessStatus: 200 ,
-     
-    origin: ['http://localhost:3000', 'http://localhost:5000' ,'http://localhost:80']  
-};
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
-//app.use(cors(corsOptions));  
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
   
  
 
@@ -31,12 +40,12 @@ const port = 5000;
   
  
 
-   app.get("/",cors(corsOptions),(req,res)=>{
+   app.get("/",(req,res)=>{
     
      res.send("welcome my app MYSQL");
    });
    
-   app.get("/Create",cors(corsOptions),(req,res)=>{
+   app.get("/Create",(req,res)=>{
       commentservice.CreateTable();
       res.send("Create  MYSQL");
   });
@@ -85,7 +94,7 @@ const port = 5000;
      
    });
    
-   app.post("/Insert",cors(corsOptions),async(req,res)=>{
+   app.post("/Insert",async(req,res)=>{
    
         let userID = req.query.UserID;
         const date  = new Date();  
