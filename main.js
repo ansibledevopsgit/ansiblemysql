@@ -27,22 +27,14 @@ app.use(corsMiddleware);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-
    app.get("/",(req,res)=>{
-    
      res.send("welcome my app MYSQL");
-     
    });
 
-   
-   
-    app.post("/Create",(req,res)=>{
+    app.get("/Create",(req,res)=>{
        commentservice.CreateTable();
        res.send("Create  MYSQL");
     });
-  
-
 
     app.post("/Insert3",(req,res)=>{
     
