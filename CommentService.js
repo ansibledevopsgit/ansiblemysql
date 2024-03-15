@@ -10,7 +10,7 @@
         const createSql = 'CREATE TABLE  Tbl_Comment (Comment_ID  INT AUTO_INCREMENT    PRIMARY KEY  NOT NULL  , Comment_UserID  INT NOT NULL , Comment_ProductID INT NOT NULL , Comment_Text VARCHAR(255)   NULL, Comment_DateTime VARCHAR(100)   NULL  ); '
          
         connection.query(createSql, function (err, result) {
-            if (err) throw err;
+            if (err) console.log("Table create Error");
             console.log("Table created");
           });
     }
@@ -18,41 +18,15 @@
    async function Insert( _IComment )   {
             comment =_IComment; 
             const insertSql = 'INSERT INTO  tbl_comment (Comment_UserID,Comment_ProductID,Comment_Text,Comment_DateTime) VALUES (?,?,?,?)'
-            const state = await new Promise((resolve, reject) => {
-                connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime], function (err, result, fields){
-                                if (err) throw err;
-                                if ((parseInt(result["affectedRows"])) > 0) { 
-                                    resolve(true);
-                                }else{
-                                    resolve(false);
-                                }
-                            });
-                        });
-            return  state;
+            const result = await  connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime] );
+            if (result.affectedRows) {
+               return true;
+            }               
+            return  false;
     }
-     function Insert2( _IComment )   {
-        comment =_IComment; 
-        const insertSql = 'INSERT INTO  tbl_comment (Comment_UserID,Comment_ProductID,Comment_Text,Comment_DateTime) VALUES (?,?,?,?)'
-        
-            connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime], function (err, result, fields){
-                            if (err) throw err;
-                            return  true;
-                        });
-                   
-        return  false;
-    }
+     
 
-    function Insert3( _IComment )   {
-        comment =_IComment; 
-        const insertSql = 'INSERT INTO  tbl_comment (Comment_UserID,Comment_ProductID,Comment_Text,Comment_DateTime) VALUES (?,?,?,?)'
-        
-            connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime], function (err, result, fields){
-                            if (err) throw err;
-                            return  true;
-                        });
-                   
-        return  false;
-    }
+    
 
     async function Update( _IComment ) {
         comment =_IComment; 
@@ -101,8 +75,6 @@
         const  selectSql = 'SELECT * FROM  tbl_comment';
         const  resultComment = await new Promise((resolve, reject) => {
             connection.query(selectSql, function (err, result, fields){
-                            if (err) throw err;
-   
                             resolve(result);
                     });
                 });
@@ -116,10 +88,8 @@
            GetByID,
            Delete,
            Update,
-           Insert,
-           Insert2,
-           Insert3
-         
+           Insert
+          
     }
 
  

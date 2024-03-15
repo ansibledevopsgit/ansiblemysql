@@ -36,46 +36,11 @@ app.use(bodyParser.json());
        res.send("Create  MYSQL");
     });
 
-    app.post("/Insert3",(req,res)=>{
-    
-        let userID = req.query.UserID;
-        const date  = new Date();  
-        const  comment = new IComment();
-        comment.comment_userid=userID;
-        comment.comment_productid=1000;
-        comment.comment_text="insert3 comment very good product";
-        comment.comment_datetime= date.toString();  
-       
-        let state = commentservice.Insert3(comment);
-            if(state){
-                res.send( "Insert3 OK Comment : " + comment );
-            }else {
-                res.send( "Error Insert3 Comment " );
-            }
-    
-     });
-
-    app.get("/Insert2",(req,res)=>{
-    
-        const date  = new Date();  
-        const  comment = new IComment();
-        comment.comment_userid=120;
-        comment.comment_productid=1000;
-        comment.comment_text="insert2 comment very good product";
-        comment.comment_datetime= date.toString();  
-       
-        let state = commentservice.Insert2(comment);
-            if(state){
-                res.send( "Insert2 OK Comment : " + comment );
-            }else {
-                res.send( "Error Insert2 Comment " );
-            }
-    
-     });
-
+      
    app.post("/Insert",async(req,res)=>{
    
-    let userID = req.query.UserID;
+    let userID = req.body.userID;
+     
     const date  = new Date();  
     const  comment = new IComment();
     comment.comment_userid=userID;
