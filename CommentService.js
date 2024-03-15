@@ -1,20 +1,9 @@
       
   
      const { IComment } = require('./IComment');
-    // const  dbMysql  = require('./db');
-    
-     var mysql = require('mysql');
-
-     var   Comment     = new IComment();
+     const  connection  = require('./db');
+     var    comment     = new IComment();
       
-
-        var connection = mysql.createConnection({
-            host     : 'localhost',
-            port     :  3306,
-            user     : 'user66',
-            password : '1234',
-            database : 'accounting'
-        });
 
     function  CreateTable(){
      
@@ -40,6 +29,29 @@
                             });
                         });
             return  state;
+    }
+     function Insert2( _IComment )   {
+        comment =_IComment; 
+        const insertSql = 'INSERT INTO  tbl_comment (Comment_UserID,Comment_ProductID,Comment_Text,Comment_DateTime) VALUES (?,?,?,?)'
+        
+            connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime], function (err, result, fields){
+                            if (err) throw err;
+                            return  true;
+                        });
+                   
+        return  false;
+    }
+
+    function Insert3( _IComment )   {
+        comment =_IComment; 
+        const insertSql = 'INSERT INTO  tbl_comment (Comment_UserID,Comment_ProductID,Comment_Text,Comment_DateTime) VALUES (?,?,?,?)'
+        
+            connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime], function (err, result, fields){
+                            if (err) throw err;
+                            return  true;
+                        });
+                   
+        return  false;
     }
 
     async function Update( _IComment ) {
@@ -104,7 +116,9 @@
            GetByID,
            Delete,
            Update,
-           Insert
+           Insert,
+           Insert2,
+           Insert3
          
     }
 
