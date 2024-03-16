@@ -19,10 +19,10 @@
             comment =_IComment; 
             const insertSql = 'INSERT INTO  tbl_comment (Comment_UserID,Comment_ProductID,Comment_Text,Comment_DateTime) VALUES (?,?,?,?)'
             const result = await  connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime] );
-            if (result.affectedRows) {
-               return true;
-            }               
-            return  false;
+            if (result.rowCount >0){
+                return true;
+            }
+            return false;
     }
      
 
