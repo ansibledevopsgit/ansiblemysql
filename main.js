@@ -37,7 +37,7 @@ app.use(bodyParser.json());
     });
 
       
-   app.post("/Insert",async(req,res)=>{
+app.post("/Insert",async(req,res)=>{
    
     let userID = req.body.userID;
      
@@ -48,6 +48,7 @@ app.use(bodyParser.json());
     comment.comment_text="insert comment very good product";
     comment.comment_datetime= date.toString();  
    
+    
     await commentservice.Insert(comment).then((state) =>{
         if(state){
             res.send( "Insert OK Comment: " + comment )

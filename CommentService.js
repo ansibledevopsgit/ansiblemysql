@@ -18,11 +18,18 @@
    async function Insert( _IComment )   {
             comment =_IComment; 
             const insertSql = 'INSERT INTO  tbl_comment (Comment_UserID,Comment_ProductID,Comment_Text,Comment_DateTime) VALUES (?,?,?,?)'
-            const result = await  connection.query(insertSql, [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime] );
-            if (result.rowCount >0){
-                return true;
-            }
-            return false;
+            const  state = await new Promise((resolve, reject) => {
+            connection.query(insertSql,  [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime], function (err, result, fields){
+                                    if (err) console.log("  INSERT  Error");
+                                    if ((parseInt(result["affectedRows"])) > 0) { 
+                                        resolve(true);
+                                    }else{
+                                        resolve(false);
+                                    }
+                            });
+                        });
+            return  state;
+            
     }
      
 
@@ -46,7 +53,7 @@
    async function Delete( CommentID ) {
         const  deleteSql = 'DELETE FROM  tbl_comment   WHERE  Comment_ID=?'
         const  state = await new Promise((resolve, reject) => {
-            connection.query(deleteSql, [CommentID], function (err, result, fields){
+        connection.query(deleteSql, [CommentID], function (err, result, fields){
                             if (err) throw err;
                             if ((parseInt(result["affectedRows"])) > 0) { 
                                 resolve(true);
