@@ -21,13 +21,11 @@
             const  state = await new Promise((resolve, reject) => {
             connection.query(insertSql,  [comment.comment_userid, comment.comment_productid, comment.comment_text,comment.comment_datetime], function (err, result, fields){
                                     if (err) console.log("  INSERT  Error", err);
-                                    // if ( parseInt(result.affectedRows) > 0) { 
-                                    //     resolve(true);
-                                    // }else{
-                                    //     resolve(false);
-                                    // }
-                                    console.log("   log result   " + result);
-                                    resolve(true);
+                                     if ( parseInt(result.affectedRows) > 0) { 
+                                          resolve(true);
+                                      }else{
+                                         resolve(false);
+                                      }
                             });
                         });
             return  state;
